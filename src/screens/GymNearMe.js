@@ -51,9 +51,9 @@ export default function GymNearMe() {
 
 const fetchGyms = async (latitude,longitude)=>{
    const options = {
-      method: POST,
+      method: "POST",
       headers: {
-          "content-Type": application/json
+          "content-Type": "application/json"
       },
       body:JSON.stringify({ latitude: latitude, longitude: longitude })
    };

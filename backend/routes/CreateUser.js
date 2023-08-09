@@ -16,7 +16,6 @@ router.post('/createuser',
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        
         let salt = await bcrypt.genSalt(10);
         let securedPassword = await bcrypt.hash(req.body.password, salt) ;//hashed password
         try {
@@ -26,10 +25,10 @@ router.post('/createuser',
                 password: securedPassword,
                 location: req.body.location
             })
-            res.json({ success: true });
+            await res.status(200).json({ success: true });
         } catch (error) {
             console.error(error);
-            res.json({ success: false });
+            res.status(401).json({ success: false });
         }
     });
 

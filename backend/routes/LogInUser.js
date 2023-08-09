@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const user = require('../models/User');
+const jwtSecret = "mynameisranchodlal17andiamfromho@#";
 
 const { body, validationResult } = require('express-validator');
 const specialCharRegex = /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.@#]/;
@@ -18,17 +19,14 @@ router.post("/loginuser",
             return res.status(400).json({ errors: errors.array() });
         }
 
-        let userEnteredEmail = req.body.email;
-        let userEnteredPassword = req.body.password;
+        let userEnteredEmail = await req.body.email;
+        let userEnteredPassword = await req.body.password;
         try {
-            let userSavedData = await user.findOne({ userEnteredEmail });
+            let userSavedData = await user.findOne({ email: userEnteredEmail });
             const checkPassword = await bcrypt.compare(userEnteredPassword, userSavedData.password)
 
-            if (!userSavedData) {
-                return res.status(401).json({ error: "Please Enter Valid User ID" });
-            }
-            else if (!checkPassword) {
-                return res.status(401).json({ error: "Please Enter Valid Password" });
+            if (!userSavedData || !checkPassword) {
+                return res.status(401).json({ error: "Please Enter Valid Credentials" });
             }
             const data = {
                 user: {
@@ -42,7 +40,12 @@ router.post("/loginuser",
             });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: "An internal server error occurred. Please try again later." });
+            if(error instanceof TypeError){
+                res.status(500).json({ error: "Please Enter Valid Credentials" });
+            }
+            else{
+                res.status(500).json({ error: "An internal server error occurred. Please try again later." });
+            }
         }
 
     })

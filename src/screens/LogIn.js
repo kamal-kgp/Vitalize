@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-// import Navbar from '../components/Navbar'
 
 export default function LogIn() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -27,26 +26,27 @@ export default function LogIn() {
     try {
       const response = await fetch("http://localhost:9000/api/loginuser", options);
       const reply = await response.json();
-      if(response.status === 400 ){
-         let errors = reply.errors;  //array of errors 
-         let n = errors.length;
-         let stringOfErrors = "";
-         for(let i=0;i<n;i++){
-            if(i<n-1) stringOfErrors += errors[i].msg + ", "; 
-            else stringOfErrors += errors[i].msg;
-         }
-         alert(stringOfErrors);
+      if (response.status === 400) {
+        let errors = reply.errors;  //array of errors 
+        let n = errors.length;
+        let stringOfErrors = "";
+        for (let i = 0; i < n; i++) {
+          if (i < n - 1) stringOfErrors += errors[i].msg + ", ";
+          else stringOfErrors += errors[i].msg;
+        }
+        alert(stringOfErrors);
       }
-      else if(response.status === 401 ){
-         alert(reply.error);
+      else if (response.status === 401) {
+        alert(reply.error);
       }
-      else if(response.status === 200) {
+      else if (response.status === 200) {
         localStorage.setItem("userEmail", credentials.email);
         localStorage.setItem("authToken", reply.authToken);
         localStorage.setItem("location", reply.location)
+        alert("Hii, drink 4 litre of water to stay hydrated for more chekout Blogs")
         navigate('/');
       }
-      else if(response.status === 500){
+      else if (response.status === 500) {
         alert(reply.error);
       }
     } catch (error) {
@@ -56,24 +56,22 @@ export default function LogIn() {
 
 
   return (
-    <div className='container'>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label for="exampleInputEmail1">User Name</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" value={credentials.email} onChange={onChange} aria-describedby="emailHelp" placeholder="User Name" />
-          <small id="emailHelp" className="form-text text-muted">User Name is Your Email Id</small>
-        </div>
-        <div className="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword1" value={credentials.password} onChange={onChange} placeholder="Password" />
-        </div>
-        {/* <div className="form-group form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-            <label className="form-check-label" for="exampleCheck1">Stay logged in</label>
-        </div> */}
-        <button type="submit" className="btn btn-primary">Submit</button>
-        <Link to="/signup" className='m-3 btn btn-danger'>I am new user</Link>
-      </form>
+    <div>
+      <div className='container'>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">User Name</label>
+            <input type="email" className="form-control" name='email' id="exampleInputEmail1" value={credentials.email} onChange={onChange} aria-describedby="emailHelp" placeholder="User Name" />
+            <small id="emailHelp" className="form-text text-muted">User Name is Your Email Id</small>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+            <input type="password" className="form-control" name='password' id="exampleInputPassword1" value={credentials.password} onChange={onChange} placeholder="Password" />
+          </div>
+          <button type="submit" className="m-3 btn btn-primary">Submit</button>
+          <Link to="/signup" className='m-3 btn btn-danger'>I am new user</Link>
+        </form>
+      </div>
     </div>
   )
 }

@@ -1,7 +1,8 @@
 const PORT = 9000
-const express = require('express')
-const cors = require('cors')
-const app = express()
+const express = require('express') ;
+const cors = require('cors') ;
+const app = express() ;
+const mongoDB = require("./db") ;
 
 
 app.use(express.json())
