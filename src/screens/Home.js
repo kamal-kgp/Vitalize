@@ -1,10 +1,12 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 
-export default function Home() {
+function Home() {
   return (
-    <div>
-        <Navbar />
+    <div style={{marginTop:"100px"}}>
+      home
     </div>
   )
 }
+
+export default Home;

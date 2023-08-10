@@ -9,21 +9,39 @@ import '../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css' ;
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' ;
 import NotFound from './screens/NotFound';
+import About from './screens/About';
+import Contact from './screens/Contact';
+
+
 import Navbar from './components/Navbar';
+import Header from './components/Header';
+import Messages from './components/Messages';
+
+import Profile from './user/Profile';
+import Chat from './user/Chat';
+
+import Purchase from './purchase/Purchase';
 
 
 function App() {
   return (
    <Router>
     <div >
-       <Navbar/>
+      <Header/>
+       {/* <Navbar/> */}
       <Routes>
         <Route exact path = "/" element = {<Home/>} />
         <Route exact path = "/login" element = {<LogIn/>} />
         <Route exact path = "/signup" element = {<SignUp/>} />
         <Route exact path = "/chatbot" element = {<Chatbot/>} />
-        <Route exact path = "/gymnearme" element = {<GymNearMe/>} />
+        <Route exact path = "/gym-near-me" element = {<GymNearMe/>} />
         <Route exact path = "*" element = {<NotFound/>} />
+        <Route exact path="/profile" element={<Profile/>}/>
+        <Route exact path="/chat" element={<Chat/>}/>
+        <Route exact path="/chat/*" element={<Messages/>}/>
+        <Route exact path="/purchase" element={<Purchase/>}/>
+        <Route exact path="/contact" element={<Contact/>}/>
+        <Route exact path="/about" element={<About/>}/>
        </Routes>
     </div>
     </Router>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { FaSadTear } from 'react-icons/fa'; // Import the required icon from React Icons
+import { IoAlertCircleOutline } from 'react-icons/io5';
 
 const NotFound = () => {
   return (
     <Box textAlign="center" mt={10}>
-      <FaSadTear size={64} color="red" />
+      <IoAlertCircleOutline size={64} color="red" />
       <Typography variant="h4" component="h1" color="textSecondary">
         Page Not Found
       </Typography>

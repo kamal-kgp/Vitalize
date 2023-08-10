@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../componentsCSS/chatbot.css'
+//import '../componentsCSS/chatbot.css'
 
 export default function Chatbot() {
     const [question, setQuestion] = useState(null)

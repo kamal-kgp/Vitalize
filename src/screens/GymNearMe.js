@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
+import { Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import MapComponent from '../components/Mapcomponent';
 
 export default function GymNearMe() {
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState(22.3231983);
+  const [longitude, setLongitude] = useState( 87.2942637);
+  const [once, setOnce] = useState(true);
+
+  
 
   const nearbyGyms = () => {
     if (navigator.geolocation) {
@@ -10,12 +15,13 @@ export default function GymNearMe() {
         (position) => {
           setLatitude(position.coords.latitude);
           setLongitude(position.coords.longitude);
-          // console.log("Latitude: ", latitude);
-          // console.log("Longitude: ", longitude);
-          fetchGyms(latitude,longitude);
+          console.log("Latitude: ", position.coords.latitude);
+          console.log("Longitude: ", position.coords.longitude);
+          //fetchGyms(latitude,longitude);
         },
         (error) => {
           // Permission denied or error occurred
+          console.log(error);
           switch (error.code) {
             case error.PERMISSION_DENIED:
               alert("Allow the location access.");
@@ -42,22 +48,45 @@ export default function GymNearMe() {
 
   }
 
+  const coordinates = [
+    
+    { id: 1, lat: 22.3231983, lng: 87.2942637, name: 'Marker 2' },
+    { id: 2, lat: 51.505, lng: -0.09, name: 'Marker 1' },
+    // Add more coordinates...
+  ];
+
+  if(once){
+    nearbyGyms();
+    setOnce(false);
+  }
+
+  const theme = createTheme();
   return (
     <div>
+      {latitude}:{ longitude}
+
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container maxWidth="md">
+        <MapComponent center={[latitude, longitude]} coordinates={coordinates} />
+      </Container>
+    </ThemeProvider>
       <button onClick={nearbyGyms}>Find Gym Near Me</button>
+      hello
     </div>
   )
 }
 
 const fetchGyms = async (latitude,longitude)=>{
    const options = {
-      method: POST,
+      method: 'POST',
       headers: {
-          "content-Type": application/json
+          "content-Type": 'application/json'
       },
       body:JSON.stringify({ latitude: latitude, longitude: longitude })
    };
    const response = await fetch("http://localhost:9000/api/findgymnearme",options)
    const status = response.status;
    const data = response.json();
+   console.log(response.status, response.json());
 }

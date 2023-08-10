@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 // import Navbar from '../components/Navbar'
+import {
+  Typography,
+  Container,
+  TextField,
+  Button,
+  Grid,
+} from "@mui/material";
 
 export default function LogIn() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -57,14 +64,45 @@ export default function LogIn() {
 
   return (
     <div className='container'>
+      <Container maxWidth="xs" style={{marginTop:"5px"}}>
+        <Typography variant='h4' align='center' gutterBottom>
+          Login
+        </Typography>
+        <form>
+          <TextField 
+          label="Email"
+          type="email"
+          fullWidth
+          margin='normal'
+          required
+          />
+          <TextField
+          label='Password'
+          type='password'
+          fullWidth
+          margin='normal'
+          required
+          />
+
+          <Button variant='contained' color='primary' fullWidth>Login</Button>
+
+          <Grid container justifyContent='center' style={{marginTop:"10px"}}>
+            <Grid item>
+              <span>Don't have an account?</span>
+              <Link to="/signup">  Signup</Link>
+            </Grid>
+          </Grid>
+
+        </form>
+      </Container>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label for="exampleInputEmail1">User Name</label>
+          <label htmlFor="exampleInputEmail1">User Name</label>
           <input type="email" className="form-control" id="exampleInputEmail1" value={credentials.email} onChange={onChange} aria-describedby="emailHelp" placeholder="User Name" />
           <small id="emailHelp" className="form-text text-muted">User Name is Your Email Id</small>
         </div>
         <div className="form-group">
-          <label for="exampleInputPassword1">Password</label>
+          <label htmlFor="exampleInputPassword1">Password</label>
           <input type="password" className="form-control" id="exampleInputPassword1" value={credentials.password} onChange={onChange} placeholder="Password" />
         </div>
         {/* <div className="form-group form-check">

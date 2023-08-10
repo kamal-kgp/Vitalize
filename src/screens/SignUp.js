@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Typography,
+  Container,
+  TextField,
+  Button,
+  Grid,
+} from "@mui/material";
 
 export default function SignUp() {
   const [credentials, setCredentials] = useState({
@@ -19,6 +26,43 @@ export default function SignUp() {
   return (
     <>
       <div className='container'>
+        <Container maxWidth="xs">
+          <Typography variant='h4' align='center' gutterBottom>Signup</Typography>
+          <form>
+            <TextField 
+            label="Name" 
+            type="text"
+            fullWidth
+            margin="normal"
+            required/>
+            <TextField 
+            label="Email" 
+            type="email"
+            fullWidth
+            margin="normal"
+            required/>
+            <TextField 
+            label="Password" 
+            type="password"
+            fullWidth
+            margin="normal"
+            required/>
+            <TextField 
+            label="Confirm Password"
+            type="password" 
+            fullWidth
+            margin="normal"
+            required/>
+            <Button variant='contained' color='primary' fullWidth>Signup</Button>
+
+          <Grid container justifyContent='center' style={{marginTop:"10px"}}>
+            <Grid item>
+              <span>Already have an account?</span>
+              <Link to="/login">  Login</Link>
+            </Grid>
+          </Grid>
+          </form>
+        </Container>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="UserName" className="form-label">Name</label>
