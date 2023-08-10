@@ -16,11 +16,36 @@ export default function SignUp() {
      location: ""
   })
   const onChange = (e)=>{
-     setCredentials({...credentials, [e.target.name]:[e.target.value]});
+     setCredentials({...credentials, [e.target.name]: e.target.value});
   }
   
-  const handleSubmit = ()=>{
-      
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:9000/api/createuser", {
+        method: 'Post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password, location: credentials.location })
+    })
+    const status = await response.status ;
+    const reply = await response.json() ;
+    if(status === 400){
+      let errors = reply.errors;  //array of errors 
+         let n = errors.length;
+         let stringOfErrors = "";
+         for(let i=0;i<n;i++){
+            if(i<n-1) stringOfErrors += errors[i].msg + ", "; 
+            else stringOfErrors += errors[i].msg;
+         }
+         alert(stringOfErrors);
+    }
+    else if(status === 401) {
+        alert("Try again later")
+    }
+    else {
+        alert("Thank you for signing up")
+    }
   }
 
   return (
@@ -79,7 +104,7 @@ export default function SignUp() {
           </div>
           <div className="mb-3">
             <label htmlFor="address" className="form-label">Address</label>
-            <input type="text" className="form-control" name='geolocation' value={credentials.geolocation} onChange={onChange} id="exampleInputPassword1" placeholder='Enter Your Current location' />
+            <input type="text" className="form-control" name='location' value={credentials.location} onChange={onChange} id="exampleInputPassword1" placeholder='Enter Your Current location' />
           </div>
 
           <button type="submit" className="m-3 btn btn-success">Submit</button>

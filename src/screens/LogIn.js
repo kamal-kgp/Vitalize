@@ -34,26 +34,27 @@ export default function LogIn() {
     try {
       const response = await fetch("http://localhost:9000/api/loginuser", options);
       const reply = await response.json();
-      if(response.status === 400 ){
-         let errors = reply.errors;  //array of errors 
-         let n = errors.length;
-         let stringOfErrors = "";
-         for(let i=0;i<n;i++){
-            if(i<n-1) stringOfErrors += errors[i].msg + ", "; 
-            else stringOfErrors += errors[i].msg;
-         }
-         alert(stringOfErrors);
+      if (response.status === 400) {
+        let errors = reply.errors;  //array of errors 
+        let n = errors.length;
+        let stringOfErrors = "";
+        for (let i = 0; i < n; i++) {
+          if (i < n - 1) stringOfErrors += errors[i].msg + ", ";
+          else stringOfErrors += errors[i].msg;
+        }
+        alert(stringOfErrors);
       }
-      else if(response.status === 401 ){
-         alert(reply.error);
+      else if (response.status === 401) {
+        alert(reply.error);
       }
-      else if(response.status === 200) {
+      else if (response.status === 200) {
         localStorage.setItem("userEmail", credentials.email);
         localStorage.setItem("authToken", reply.authToken);
         localStorage.setItem("location", reply.location)
+        alert("Hii, drink 4 litre of water to stay hydrated for more chekout Blogs")
         navigate('/');
       }
-      else if(response.status === 500){
+      else if (response.status === 500) {
         alert(reply.error);
       }
     } catch (error) {
