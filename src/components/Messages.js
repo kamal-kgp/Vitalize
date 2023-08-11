@@ -19,6 +19,7 @@ import { FaPaperPlane } from 'react-icons/fa'; // Import send icon from react-ic
 const theme = createTheme();
 
 const Messages = ( ) => {
+const userId = localStorage.getItem("_id");
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const otherUser = {

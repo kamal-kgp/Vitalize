@@ -91,6 +91,11 @@ const Header = () => {
                     <FaShoppingCart/>&nbsp;
                     <ListItemText primary="Purchase" />
                   </ListItem>
+
+                  <ListItem button onClick={()=>{navigate("/todo"); closeDrawer();}}>
+                    <FaShoppingCart/>&nbsp;
+                    <ListItemText primary="Todo" />
+                  </ListItem>
                   {/* Add more menu items as needed */}
                 </List>
               </Drawer>
@@ -112,6 +117,8 @@ const Header = () => {
               <Button color="inherit" sx={{ mr: 2 }} onClick={()=>navigate("/chat")}><FaRegPaperPlane/>&nbsp;Messages</Button>
 
               <Button color="inherit" sx={{ mr: 2 }} onClick={()=>navigate("/purchase")}><FaShoppingCart/>&nbsp;Purchase</Button>
+
+              <Button color="inherit" sx={{ mr: 2 }} onClick={()=>navigate("/todo")}><FaShoppingCart/>&nbsp;Todo</Button>
               {/* Add more navigation buttons as needed */}
             </>
           )}

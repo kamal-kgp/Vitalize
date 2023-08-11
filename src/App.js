@@ -13,7 +13,6 @@ import About from './screens/About';
 import Contact from './screens/Contact';
 
 
-import Navbar from './components/Navbar';
 import Header from './components/Header';
 import Messages from './components/Messages';
 
@@ -21,6 +20,9 @@ import Profile from './user/Profile';
 import Chat from './user/Chat';
 
 import Purchase from './purchase/Purchase';
+
+
+import Todo from './deb/Todo';
 
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
         <Route exact path="/purchase" element={<Purchase/>}/>
         <Route exact path="/contact" element={<Contact/>}/>
         <Route exact path="/about" element={<About/>}/>
+
+        <Route exact path="/todo" element={<Todo/>}/>
        </Routes>
     </div>
     </Router>

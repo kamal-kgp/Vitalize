@@ -13,7 +13,6 @@ export default function LogIn() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
 
   const onChange = (e) => {
-    console.log(e.target.type);
     setCredentials({ ...credentials, [e.target.type]: e.target.value });
   }
 
@@ -49,6 +48,8 @@ export default function LogIn() {
         alert(reply.error);
       }
       else if (response.status === 200) {
+        localStorage.setItem('lastLogin', Date.now());
+        localStorage.setItem('_id', reply._id);
         localStorage.setItem("userEmail", credentials.email);
         localStorage.setItem("authToken", reply.authToken);
         localStorage.setItem("location", reply.location)
@@ -62,7 +63,6 @@ export default function LogIn() {
       console.error(error);
     }
   }
-  console.log(credentials)
 
 
   return (
