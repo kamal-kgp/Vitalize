@@ -13,7 +13,8 @@ export default function LogIn() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
 
   const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    console.log(e.target.type);
+    setCredentials({ ...credentials, [e.target.type]: e.target.value });
   }
 
   let navigate = useNavigate();
@@ -61,6 +62,7 @@ export default function LogIn() {
       console.error(error);
     }
   }
+  console.log(credentials)
 
 
   return (
@@ -76,6 +78,7 @@ export default function LogIn() {
           fullWidth
           margin='normal'
           required
+          value={credentials.email} onChange={onChange}
           />
           <TextField
           label='Password'
@@ -83,9 +86,10 @@ export default function LogIn() {
           fullWidth
           margin='normal'
           required
+          value={credentials.password} onChange={onChange}
           />
 
-          <Button variant='contained' color='primary' fullWidth>Login</Button>
+          <Button variant='contained' color='primary' fullWidth onClick={handleSubmit}>Login</Button>
 
           <Grid container justifyContent='center' style={{marginTop:"10px"}}>
             <Grid item>
@@ -96,23 +100,6 @@ export default function LogIn() {
 
         </form>
       </Container>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">User Name</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" value={credentials.email} onChange={onChange} aria-describedby="emailHelp" placeholder="User Name" />
-          <small id="emailHelp" className="form-text text-muted">User Name is Your Email Id</small>
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword1" value={credentials.password} onChange={onChange} placeholder="Password" />
-        </div>
-        {/* <div className="form-group form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-            <label className="form-check-label" for="exampleCheck1">Stay logged in</label>
-        </div> */}
-        <button type="submit" className="btn btn-primary">Submit</button>
-        <Link to="/signup" className='m-3 btn btn-danger'>I am new user</Link>
-      </form>
-    </div>
+    </div>  
   )
 }
