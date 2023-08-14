@@ -22,9 +22,9 @@ router.post('/sendFriendRequest/:userId', async(req,res) => {
 }) ;
 
 
-router.get('/getFriendRequests', async(req,res) => {
+router.get('/getFriendRequests/:userId', async(req,res) => {
     try {
-        const userId = req.body.userId ;
+        const userId = req.params.userId ;
         
         const userData = await user.findById(userId) ;
         if(!userData){
@@ -37,7 +37,20 @@ router.get('/getFriendRequests', async(req,res) => {
     }
 }) ;
 
-
+router.get('/getFriends/:userId', async(req, res) => {
+    try {
+        const userId = req.params.userId ;
+        
+        const userData = await user.findById(userId) ;
+        if(!userData){
+            return res.status(404).json({message: "user not found"})
+        }
+        const friendsList = userData.friends ;
+        res.status(200).json(friendsList);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}) ;
 
 router.post('/acceptFriendRequest/:userId', async(req,res) => {
     try {
@@ -66,7 +79,7 @@ router.post('/acceptFriendRequest/:userId', async(req,res) => {
 
 
 
-router.delete('/deleteRequest/:userId', async(req,res) => {
+router.post('/deleteRequest/:userId', async(req,res) => {
     try {
         const {userId} = req.params ;
         const friendRequestId = req.body.friendRequestId ;
@@ -87,7 +100,7 @@ router.delete('/deleteRequest/:userId', async(req,res) => {
     }
 }) ;
 
-router.delete('/removeFriend/:userId', async(req,res) => {
+router.post('/removeFriend/:userId', async(req,res) => {
     try {
         const {userId} = req.params ;
     const friendId = req.body.friendId ;

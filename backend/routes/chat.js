@@ -10,10 +10,10 @@ router.get('/friends/:userId', async (req, res) => {
          const user = await Message.findOne({_id: userId});
       res.json(user?.friends);
     } catch (error) {
-      res.status(500).json({ message: 'Error fetching users.' });
+      res.status(500).json({ message: 'Error fetching users.' });                  
     }
   });
-
+                                                                  
 // // Get messages between two users
 // router.get('/api/messages/:userId', async (req, res) => {
 //     try {

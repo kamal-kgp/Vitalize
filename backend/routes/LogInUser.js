@@ -37,8 +37,8 @@ router.post("/loginuser",
             const authToken = jwt.sign(data, jwtSecret)
             return res.status(200).json({
                 authToken: authToken,
-                location: userSavedData.location,
-                _id: userSavedData._id
+                location: userSavedData.location,  
+                _id: userSavedData._id     
             });
         } catch (error) {
             console.error(error);
