@@ -23,7 +23,9 @@ router.post('/createuser',
                 name: req.body.name,
                 email: req.body.email,
                 password: securedPassword,
-                location: req.body.location
+                location: req.body.location,
+                friends: [],
+                requests: []
             })
             await res.status(200).json({ success: true });
         } catch (error) {
