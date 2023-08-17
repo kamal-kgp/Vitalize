@@ -13,11 +13,12 @@ const FriendsList = () => {
 
     const getFriends = async()=>{
         try{
-            const response = await fetch('http://localhost:9000/api/friends/'+userId);
+            const response = await fetch('http://localhost:9000/api/getFriends/'+userId);
 
             
             const data = await response.json();
             console.log(data);
+            setFriends(data);
         }catch(error){
             console.error("Error while getting friend list : ", error);
         }
@@ -41,24 +42,18 @@ const FriendsList = () => {
     },
     // Add more friends...
   ];
-
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Container maxWidth="md" style={{marginTop:"10px"}}>
-        <Grid container spacing={3}>
-          {friends1.map((friend) => (
-            <Grid item xs={12} sm={6} md={4} key={friend.id} onClick={()=>navigate("/chat/"+friend.id)}>
+  return(
+    <div>
+        {friends.map((friend) => (
+            <Grid item xs={12} sm={6} md={4} key={friend} onClick={()=>navigate("/chat/"+friend)}>
               <FriendCard
-                name={friend.name}
-                lastMessage={friend.lastMessage}
+               id={friend}
               />
             </Grid>
           ))}
-        </Grid>
-      </Container>
-    </ThemeProvider>
+    </div>
   );
+
 };
 
 export default FriendsList;

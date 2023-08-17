@@ -18,6 +18,8 @@ import Messages from './components/Messages';
 
 import Profile from './user/Profile';
 import Chat from './user/Chat';
+import Requests from './user/Requests';
+import Others from './user/Others';
 
 import Purchase from './purchase/Purchase';
 
@@ -40,7 +42,9 @@ function App() {
         <Route exact path = "*" element = {<NotFound/>} />
         <Route exact path="/profile" element={<Profile/>}/>
         <Route exact path="/chat" element={<Chat/>}/>
-        <Route exact path="/chat/*" element={<Messages/>}/>
+        <Route exact path="/chat/requests" element={<Requests/>}/>
+        <Route exact path="/chat/others" element={<Others/>}/>
+        <Route exact path="/chat/:id" element={<Messages/>}/>
         <Route exact path="/purchase" element={<Purchase/>}/>
         <Route exact path="/contact" element={<Contact/>}/>
         <Route exact path="/about" element={<About/>}/>

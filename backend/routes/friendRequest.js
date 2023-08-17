@@ -2,6 +2,33 @@ const express = require('express');
 const router = express.Router();
 const user = require('../models/User');
 
+router.get("/getuserbyid/:id", async(req, res)=>{
+    try{
+        const {id} = req.params;
+        const userData = await user.findById(id);
+
+        return res.status(200).json({_id:userData._id, name:userData.name});
+    }catch(err){console.log(err);}
+})
+
+router.get("/getuser/:name", async(req,res)=>{
+    try{
+        const {name} = req.params;
+
+        const userData = await user.find({name:name});
+
+        const data = [];
+
+        for(let i=0; i<userData.length; i++){
+            data.push({_id:userData[i]._id, name:userData[i].name});
+        }
+        
+        return res.status(200).json(data);
+    }catch(err){
+        console.log(err);
+    }
+})
+
 router.post('/sendFriendRequest/:userId', async(req,res) => {
     try {
         const {userId} = req.params ;  //sender's userID
